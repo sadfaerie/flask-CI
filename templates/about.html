@@ -1,17 +1,80 @@
-<html>
-  <head>
-    <title>Hello Flask</title>
-  </head>
+{% extends 'base.html' %}
+{% block content %}
 
-  <body>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{ url_for('contact') }}">Contact</a></li>
-      </ul>
-    </nav>
+<!-- #{{ list_of_numbers }} -->
 
-    <h1>About</h1>
-  </body>
-</html>
+<!-- {% for number in list_of_numbers %}
+<p>{{ number }}</p>
+{% endfor %} -->
+
+    <h2>{{ page_title }}</h2>
+
+<p>The formation of the group grew out of a meeting Gandalf had with Thorin in Bree which kindled Thorin's
+  interest in recapturing his long lost family inheritance. Remembering that he had once known an adventurous
+  Hobbit on his travels in The Shire, Gandalf decided to add Bilbo to their company because he knew that
+  stealth and cunning were preferable to force. Gandalf also believed that someone like Bilbo could keep the
+  sometimes prideful and stubborn Dwarves from rash action. The superstitious Dwarves also considered thirteen
+  to be an unlucky number, and as Gandalf had planned to leave on other business, welcomed a fourteenth to fill
+  in to their party.</p>
+
+<!-- {{ company_data[0]["name"] }}
+{{ company_data[0]["description"] }} -->
+
+<!-- <div class="row featurette">
+  <div class="col-md-7">
+    <h3>{{ company_data[0]["name"] }}</h3>
+  <p>{{ company_data[0]["description"] }}</p>
+  </div>
+  <div class="col-md-5"><img src="{{ company_data[0]["image_source"] }}">
+  </div>
+</div>
+
+<div class="row featurette">
+  <div class="col-md-5"><img src="{{ company_data[1]["image_source"] }}">
+  </div>
+  <div class="col-md-7">
+    <h3>{{ company_data[1]["name"] }}</h3>
+  <p>{{ company_data[1]["description"] }}</p>
+  </div>
+</div>
+
+<div class="row featurette">
+  <div class="col-md-7">
+    <h3>{{ company_data[2]["name"] }}</h3>
+  <p>{{ company_data[2]["description"] }}</p>
+  </div>
+  <div class="col-md-5"><img src="{{ company_data[2]["image_source"] }}">
+  </div>
+</div> -->
+{% for member in company_data %}
+
+<!-- {{ loop.index }} -->
+
+
+  {% if loop.index % 2 != 0 %}
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h3><a href="/about/{{ member.url }}">{{ member.name }}</a></h3>
+        <p>{{ member.description }}</p>
+      </div>
+      <div class="col-md-5"><img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
+      </div>
+    </div>
+  {% else %}
+    <div class="row featurette">
+      <div class="col-md-5"><img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
+      </div>
+      <div class="col-md-7">
+        <h3><a href="/about/{{ member.url }}">{{ member.name }}</a></h3>
+        <p>{{ member.description }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+{% if loop.index != 3 %}
+<hr class="featurette-divider">
+{% endif %}
+
+{% endfor %}
+
+{% endblock%}
